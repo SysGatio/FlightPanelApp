@@ -1,0 +1,22 @@
+body {
+    background-color: darkblue !important;
+}
+
+body, h1, h2, h3, h4, h5, h6, th, td {
+    font-family: 'Barlow Condensed', sans-serif !important;
+}
+
+th {
+    font-size: 1.4rem !important;
+    background-color: darkblue !important;
+    color: white !important;
+}
+
+td {
+    font-size: 1.2rem !important;
+}
+
+td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}

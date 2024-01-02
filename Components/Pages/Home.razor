@@ -1,0 +1,58 @@
+﻿@page "/"
+@inject FlightPanel FlightPanel
+@implements IDisposable
+
+<PageTitle>Flight Panel</PageTitle>
+
+<MudContainer Class="mt-4">
+    <MudGrid Class="pa-4" Justify="Justify.SpaceBetween" Spacing="0" Style="background-color: white;">
+        <MudItem><MudText Typo="Typo.h5">DEPARTURES</MudText></MudItem>
+        <MudItem><MudText Typo="Typo.h5">@FlightPanel.LocalTime.ToString("g")</MudText></MudItem>
+        </MudGrid>
+
+        <MudTable Items="@FlightPanel.Flights" Dense="true">
+            <HeaderContent>
+                <MudTh>SDT</MudTh>
+                <MudTh>To/Via</MudTh>
+                <MudTh>Airline</MudTh>
+                <MudTh>Flight</MudTh>
+                <MudTh>Gate</MudTh>
+                <MudTh>ETD</MudTh>
+                <MudTh>Remarks</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="STD"><MudText Typo="Typo.h6" Style="font-family: 'Barlow Condensed'">@context.StandardTimeDeparture</MudText></MudTd>
+                <MudTd DataLabel="Destination">@context.Destination</MudTd>
+                <MudTd DataLabel="Airline">@context.Airline</MudTd>
+                <MudTd DataLabel="Flight">@context.Number</MudTd>
+                <MudTd DataLabel="Gate">@context.Gate</MudTd>
+                <MudTd DataLabel="ETD">@context.EstimatedTimeDeparture</MudTd>
+                <MudTd DataLabel="Remarks">@context.Remarks</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudContainer>
+
+    @code
+    {
+    private Timer _timer = default!;
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(TimeSpan.FromSeconds(1));
+        _timer.Elapsed += UpdateScreen!;
+        _timer.Start();
+
+        base.OnInitialized();
+    }
+
+    private async void UpdateScreen(Object source, ElapsedEventArgs e)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        _timer.Stop();
+        _timer.Dispose();
+    }
+}
