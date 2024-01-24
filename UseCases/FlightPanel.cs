@@ -144,7 +144,7 @@ public class FlightPanel : IDisposable
         if (standardTimeDeparture < currentTime.AddMinutes(60))
             return "Check-in Closed";
 
-        if (standardTimeDeparture < currentTime.AddMinutes(120))
+        if (standardTimeDeparture < currentTime.AddMinutes(90))
             return "Check-in Open";
 
         if (standardTimeDeparture < currentTime.AddMinutes(180))
